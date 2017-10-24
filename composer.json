@@ -1,0 +1,19 @@
+{
+    "name": "gabidj/mvc2",
+    "description": "Modern MVC for DotKernel1 Applications",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gsro",
+            "email": "git@gabisuciu.ro"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+	"autoload": {
+		"psr-4": {
+			"GSRO\\DotKernel\\MVC2\\": "src"
+		}
+	}
+}
