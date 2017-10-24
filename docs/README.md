@@ -1,7 +1,68 @@
 MVC2
 ---
 
-Controller example
+### Model example
+
+```php
+<?php
+
+namespace My\App;
+
+use GSRO\DotKernel\MVC2\Model\CrudModelTrait;
+use GSRO\DotKernel\MVC2\Model\BaseModel;
+
+class MyModel extends BaseModel
+{
+	// for basic CRUD
+	use CrudModelTrait;
+	
+	public function __construct($table = null)
+    {
+        parent::__construct();
+        $this->table = $table ?? 'defaultTableName';
+    }
+}
+```
+
+### View
+
+```php
+<?php
+
+namespace My\App;
+
+use GSRO\DotKernel\MVC2\AdminViewTrait;
+use GSRO\DotKernel\MVC2\FrontendViewTrait;
+use GSRO\DotKernel\MVC2\View\ViewTrait;
+
+
+class ProductView extends \View
+{
+    use ViewTrait;
+	// for frontend:
+	// use FrontendViewTrait;
+	// for admin:
+    use AdminViewTrait;
+	
+	public function viewAction($template, $data)
+	{
+		// ... your template code here ...
+	}
+	
+	public function listAction($template, $data)
+	{
+		// ... your template code here ...
+	}
+	
+	public function addAction($template, $data)
+	{
+		// ... your template code here ...
+	}
+}	
+```
+
+
+### Controller example
 
 ```php
 <?php
@@ -47,59 +108,3 @@ class MyController implements ControllerInterface
 
 ```
 
-
-```php
-<?php
-
-namespace My\App;
-
-use GSRO\DotKernel\MVC2\Model\CrudModelTrait;
-use GSRO\DotKernel\MVC2\Model\BaseModel;
-
-class MyModel extends BaseModel
-{
-	// for basic CRUD
-	use CrudModelTrait;
-	
-	public function __construct($table = null)
-    {
-        parent::__construct();
-        $this->table = $table ?? 'defaultTableName';
-    }
-}
-```
-
-```php
-<?php
-
-namespace My\App;
-
-use GSRO\DotKernel\MVC2\AdminViewTrait;
-use GSRO\DotKernel\MVC2\FrontendViewTrait;
-use GSRO\DotKernel\MVC2\View\ViewTrait;
-
-
-class ProductView extends \View
-{
-    use ViewTrait;
-	// for frontend:
-	// use FrontendViewTrait;
-	// for admin:
-    use AdminViewTrait;
-	
-	public function viewAction($template, $data)
-	{
-		// ... your template code here ...
-	}
-	
-	public function listAction($template, $data)
-	{
-		// ... your template code here ...
-	}
-	
-	public function addAction($template, $data)
-	{
-		// ... your template code here ...
-	}
-}	
-```
