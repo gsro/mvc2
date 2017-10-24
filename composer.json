@@ -3,6 +3,7 @@
     "description": "Modern MVC for DotKernel1 Applications",
     "type": "library",
     "license": "MIT",
+    "version": "v1.0.0",
     "authors": [
         {
             "name": "gsro",
