@@ -32,14 +32,14 @@ trait ViewTrait
         $this->tpl = $tpl;
     }
     
-    public function blockList($list, $blockName, $parent = 'tpl_main')
+    public function blockList($list, $blockName, $prefix = '', $parent = 'tpl_main')
     {
         $this->tpl->setBlock($parent, $blockName, $blockName.'_block');
     
         // sanitize before showing
         foreach ($list as $element) {
             foreach ($element as $key => $value) {
-                $this->tpl->setVar(strtoupper($key), $value);
+                $this->tpl->setVar(strtoupper($prefix.$key), $value);
             }
             $this->tpl->parse($blockName.'_block', $blockName, true);
         }
