@@ -102,6 +102,9 @@ trait ControllerTrait
     public function bootstrap()
     {
         $this->siteUrl = $this->registry->configuration->website->params->url;
+        $this->controllerUrl = $this->siteUrl . '/' . $this->registry->requestModule .
+            '/' . $this->registry->requestController;
+        
         if (!$this->checkAction($this->registry->requestAction)) {
             $this->redirect($this->registry->configuration->website->params->url);
         }
@@ -110,8 +113,8 @@ trait ControllerTrait
     
     public function __call($name, $arguments)
     {
-        $this->redirect($this->registry->website->params->url);
-        // TODO: Implement __call() method.
+        # $this->redirect($this->registry->website->params->url, 'invalid action', 'error');
+        $this->redirect($this->controllerUrl, 'invalid action', 'error');
     }
     
     /**
