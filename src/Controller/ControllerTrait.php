@@ -12,9 +12,29 @@ trait ControllerTrait
     
     protected $siteUrl;
     
+    protected $controllerUrl;
+    
     protected $model = null;
     
     protected $view = null;
+    
+    protected $pageTitle = 'Overwrite $this->pageTitle';
+    
+    /**
+     * @return null
+     */
+    public function getPageTitle()
+    {
+        return $this->pageTitle;
+    }
+    
+    /**
+     * @param null $pageTitle
+     */
+    public function setPageTitle($pageTitle)
+    {
+        $this->pageTitle = $pageTitle;
+    }
     
     /**
      * @return mixed

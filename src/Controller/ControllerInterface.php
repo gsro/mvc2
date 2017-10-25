@@ -15,4 +15,9 @@ interface ControllerInterface
      * @return mixed
      */
     public function customBootstrap();
+    
+    /**
+     * @return mixed
+     */
+    public function getPageTitle();
 }

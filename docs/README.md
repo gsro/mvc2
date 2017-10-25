@@ -89,9 +89,15 @@ class MyController implements ControllerInterface
         ];
         $this->tpl = $tpl;
     }
+    
+    public function customBootstrap()
+    {
+        // TODO: Implement customBootstrap() method.
+    }
 	
 	public function viewAction()
 	{
+	    $this->pageTitle = 'View Action';
 		// ... your code here ...
 	}
 	
