@@ -89,11 +89,17 @@ trait ControllerTrait
         return in_array($action, $this->allowedActions);
     }
     
+    public function message($message = '', $messageType = 'info')
+    {
+        $this->registry->session->message['txt'] = $message;
+        $this->registry->session->message['type'] = 'info';
+        return true;
+    }
+    
     public function redirect($target, $message = '', $messageType = 'info')
     {
         if ($message) {
-            $this->registry->session->message['txt'] = $message;
-            $this->registry->session->message['type'] = 'info';
+            $this->message($message, $messageType);
         }
         header('Location: '. $target);
         exit;
