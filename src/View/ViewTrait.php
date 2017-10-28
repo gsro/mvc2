@@ -44,4 +44,30 @@ trait ViewTrait
             $this->tpl->parse($blockName.'_block', $blockName, true);
         }
     }
+    
+    /**
+     * Set vars recursively
+     *
+     * positive $levels => limited levels
+     * negative $levels => unlimited levels
+     * $levels = 0, non-recursive
+     *
+     * @param $vars
+     * @param string $prefix
+     * @param int $levels
+     */
+    public function setVarsRecursive($vars, $prefix = '', $levels = -1)
+    {
+        foreach ($vars as $key => $value) {
+            if (is_string($value)) {
+                $this->tpl->setVar(strtoupper($prefix.$key), $value);
+            }
+            if (is_array($value)) {
+                $prefix.= $key.'_';
+                if ($levels != 0) {
+                    $this->setVarsRecursive($value, $prefix, $levels-1);
+                }
+            }
+        }
+    }
 }
