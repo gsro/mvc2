@@ -56,7 +56,7 @@ trait ViewTrait
      * @param string $prefix
      * @param int $levels
      */
-    public function setVarsRecursive($vars, $prefix = '', $levels = -1)
+    public function setVarsRecursive($vars, $levels = -1, $prefix = '')
     {
         foreach ($vars as $key => $value) {
             if (is_string($value)) {
@@ -65,7 +65,7 @@ trait ViewTrait
             if (is_array($value)) {
                 $prefix.= $key.'_';
                 if ($levels != 0) {
-                    $this->setVarsRecursive($value, $prefix, $levels-1);
+                    $this->setVarsRecursive($value, $levels-1, $prefix);
                 }
             }
         }
