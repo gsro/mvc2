@@ -17,29 +17,51 @@ trait CrudModelTrait
      * @param array $options
      * @return array
      */
-    public function getList($table, $page = 1, $options = [])
+    public function getList($table, $page = 1, array $options = [])
     {
         $select = $this->db->select()->from($table);
         
-        if (isset($options) && !empty($options)) {
-            foreach ($options as $sqlAction => $sqlSpot) {
-                if ($sqlAction === 'join') {
-                    foreach ($sqlSpot as $tableJoin => $data) {
-                        $select->join($tableJoin, $tableJoin . "." . $data['withColumn'] . " = " . $data['onTable'] . "." . $data['onTableColumn'], $data['return']);
-                    }
-                } elseif ($sqlAction === 'where') {
-                    foreach ($sqlSpot as $filter => $filterValue) {
-                        $select->where($filter . " = ?", $filterValue);
-                    }
-                }
-            }
-        }
+        $select = $this->applyOptions($select, $options);
         
         if ($page <= 0) {
             return $this->db->fetchAll($select);
         }
         $dotPaginator = new Dot_Paginator($select, $page, $this->settings->resultsPerPage);
         return $dotPaginator->getData();
+    }
+    
+    /**
+     * Get one item
+     *
+     * @param $table - table to search in
+     * @param $pk - primary key value
+     * @param array $options
+     */
+    public function getItem($table, $pk, array $options = [])
+    {
+        $column = $options['primaryKey'] ?? 'id';
+        $select = $this->db->select()->from($table)->where($column . ' = ?', $pk);
+        $select = $this->applyOptions($select, $options);
+        // debug version
+        // return $this->>db->fetchAll()[0];
+        return $this->db->fetchRow($select);
+    }
+    
+    private function applyOptions($select, $options)
+    {
+        foreach ($options as $sqlAction => $sqlSpot) {
+            if ($sqlAction === 'join') {
+                foreach ($sqlSpot as $tableJoin => $data) {
+                    $select->join($tableJoin, $tableJoin . "." . $data['withColumn'] . " = " . $data['onTable'] . "." . $data['onTableColumn'], $data['return']);
+                }
+            }
+            if ($sqlAction === 'where') {
+                foreach ($sqlSpot as $filter => $filterValue) {
+                    $select->where($filter . " = ?", $filterValue);
+                }
+            }
+        }
+        return $select;
     }
     
     /**
