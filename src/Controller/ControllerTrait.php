@@ -92,7 +92,7 @@ trait ControllerTrait
     public function message($message = '', $messageType = 'info')
     {
         $this->registry->session->message['txt'] = $message;
-        $this->registry->session->message['type'] = 'info';
+        $this->registry->session->message['type'] = $messageType;
         return true;
     }
     

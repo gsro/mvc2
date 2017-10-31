@@ -113,4 +113,12 @@ trait CrudModelTrait
         $select = $this->db->insert($table, $data);
         return $this->db->lastInsertId($table);
     }
+    
+    public function deleteItem($table, $pk, array $options = null)
+    {
+        $column = $options['primaryKey'] ?? 'id';
+        $result = $this->db->delete($table, $column . ' = '. $pk);
+        // get affected rows
+        return $result->rowCount();
+    }
 }
